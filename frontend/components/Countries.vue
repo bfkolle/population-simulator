@@ -30,7 +30,7 @@
 			countryVisible(country) {
 				let currentName = country.name.toLowerCase()
 				let currentInput = this.inputValue.toLowerCase()
-				return currentName.includes(currentInput)
+				return currentName.startsWith(currentInput)
 			},
 			selectCountry(country) {
 				this.selectedCountry = country
