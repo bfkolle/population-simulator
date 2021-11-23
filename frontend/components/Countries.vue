@@ -18,9 +18,9 @@
 			<h2>{{ selectedCountry.name }}</h2>
 			<ul>
 				<li>Population: {{ selectedCountry.population.toLocaleString() }}</li>
-				<li>Population Growth Rate: {{ selectedCountry.populationGrowthRate * 100 }}%</li>
+				<li>Population Growth Rate: {{ (selectedCountry.populationGrowthRate * 100).toFixed(2) }}%</li>
 				<li>GDP Per Capita: ${{ getGdpPercapita(selectedCountry).toLocaleString('en-US', { maximumFractionDigits: 2 }) }}</li>
-				<li>GDP Growth Rate: {{ selectedCountry.economy.gdpGrowthRate * 100 }}%</li>
+				<li>GDP Growth Rate: {{ (selectedCountry.economy.gdpGrowthRate * 100).toFixed(2) }}%</li>
 			</ul>
 		</div>
 	</div>
