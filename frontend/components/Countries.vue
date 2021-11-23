@@ -1,4 +1,4 @@
-<!-- Incorporates design from https://ctnicholas.medium.com/create-a-searchable-dropdown-list-in-vue-js-139dd064e845 -->
+<!-- Incorporates some design from https://ctnicholas.medium.com/create-a-searchable-dropdown-list-in-vue-js-139dd064e845 -->
 
 <template>
 	<div class="dropdown">
@@ -18,7 +18,9 @@
 			<h2>{{ selectedCountry.name }}</h2>
 			<ul>
 				<li>Population: {{ selectedCountry.population.toLocaleString() }}</li>
-				<li>Population Growth Rate: {{ (selectedCountry.populationGrowthRate * 100).toFixed(2) }}%</li>
+				<li>Population Growth Rate: 
+					<input type="range" min="-10" max="10" step="0.1" v-model.trim="sliderValue">{{ sliderValue }}%
+				</li>
 				<li>GDP Per Capita: ${{ getGdpPercapita(selectedCountry).toLocaleString('en-US', { maximumFractionDigits: 2 }) }}</li>
 				<li>GDP Growth Rate: {{ (selectedCountry.economy.gdpGrowthRate * 100).toFixed(2) }}%</li>
 			</ul>
@@ -32,6 +34,7 @@
 			return {
 				countries: [],
 				inputValue: '',
+				sliderValue: '',
 				selectedCountry: {}
 			}
 		},
@@ -46,6 +49,7 @@
 			},
 			selectCountry(country) {
 				this.selectedCountry = country
+				this.sliderValue = (country.populationGrowthRate * 100).toFixed(2)
 				this.inputValue = ""
 			},
 			resetCountry() {
