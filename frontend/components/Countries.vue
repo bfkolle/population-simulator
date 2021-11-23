@@ -19,7 +19,8 @@
 			<ul>
 				<li>Population: {{ selectedCountry.population.toLocaleString() }}</li>
 				<li>Population Growth Rate: 
-					<input type="range" min="-10" max="10" step="0.1" v-model.trim="sliderValue">{{ sliderValue }}%
+					<input type="range" min="-0.1" max="0.1" step="0.001" v-model.trim="sliderValue">{{ (sliderValue * 100).toFixed(2) }}%
+					<button @click="updatePopulationGrowth()">Update</button>
 				</li>
 				<li>GDP Per Capita: ${{ getGdpPercapita(selectedCountry).toLocaleString('en-US', { maximumFractionDigits: 2 }) }}</li>
 				<li>GDP Growth Rate: {{ (selectedCountry.economy.gdpGrowthRate * 100).toFixed(2) }}%</li>
@@ -49,7 +50,7 @@
 			},
 			selectCountry(country) {
 				this.selectedCountry = country
-				this.sliderValue = (country.populationGrowthRate * 100).toFixed(2)
+				this.sliderValue = country.populationGrowthRate
 				this.inputValue = ""
 			},
 			resetCountry() {
@@ -62,6 +63,9 @@
 			getGdpPercapita(country) {
 				let economy = country.economy
 				return economy.gdp / country.population
+			},
+			updatePopulationGrowth() {
+				this.selectedCountry.populationGrowthRate = this.sliderValue
 			}
 		}
 	}
