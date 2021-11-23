@@ -4,6 +4,8 @@
 	<div class="dropdown">
 		<h1>Population Simulator</h1>
 
+		<div><button>Start Simulation</button> Current Year: {{ currentYear }}</div>
+
 		<input v-if="isEmptyObject(selectedCountry)" ref="dropdowninput" v-model.trim="inputValue" class="dropdown-input" type="text" placeholder="Search countries" />
 		<div v-else @click="resetCountry" class="dropdown-selected">
 			{{ selectedCountry.name }}
@@ -33,6 +35,7 @@
 	export default {
 		data() {
 			return {
+				currentYear: 2022,
 				countries: [],
 				inputValue: '',
 				sliderValue: '',
