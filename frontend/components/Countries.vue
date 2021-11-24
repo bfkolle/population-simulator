@@ -67,8 +67,10 @@
 				let economy = country.economy
 				return economy.gdp / country.population
 			},
-			updatePopulationGrowth() {
+			async updatePopulationGrowth() {
 				this.selectedCountry.populationGrowthRate = this.sliderValue
+				let url = `/updategrowth?name=${this.selectedCountry.name}&growth=${this.sliderValue}`
+				await this.$http.$get(url)
 			}
 		}
 	}
