@@ -4,7 +4,11 @@
 	<div class="dropdown">
 		<h1>Population Simulator</h1>
 
-		<div><button>Start Simulation</button> Current Year: {{ currentYear }}</div>
+		<div>
+			<button v-if="!simulationStarted" @click="startSimulation()">Start</button>
+			<button v-if="simulationStarted" @click="stopSimulation()">Stop</button>
+			 Current Year: {{ currentYear }}
+		</div>
 
 		<input v-if="isEmptyObject(selectedCountry)" ref="dropdowninput" v-model.trim="inputValue" class="dropdown-input" type="text" placeholder="Search countries" />
 		<div v-else @click="resetCountry" class="dropdown-selected">
@@ -39,13 +43,20 @@
 				countries: [],
 				inputValue: '',
 				sliderValue: '',
-				selectedCountry: {}
+				selectedCountry: {},
+				simulationStarted: false
 			}
 		},
 		async fetch() {
 			this.countries = await this.$http.$get("/all")
 		},
 		methods: {
+			startSimulation() {
+				this.simulationStarted = true
+			},
+			stopSimulation() {
+				this.simulationStarted = false
+			},
 			countryVisible(country) {
 				let currentName = country.name.toLowerCase()
 				let currentInput = this.inputValue.toLowerCase()
