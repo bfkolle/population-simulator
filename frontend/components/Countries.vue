@@ -44,18 +44,27 @@
 				inputValue: '',
 				sliderValue: '',
 				selectedCountry: {},
-				simulationStarted: false
+				simulationStarted: false,
+				intervalId : ''
 			}
 		},
 		async fetch() {
 			this.countries = await this.$http.$get("/all")
+			console.log("update")
 		},
 		methods: {
 			startSimulation() {
 				this.simulationStarted = true
+				this.intervalId = setInterval(() => this.tick(), 500)
 			},
 			stopSimulation() {
 				this.simulationStarted = false
+				clearInterval(this.intervalId)
+			},
+			async tick() {
+				await this.$http.$get("/tick")
+				this.currentYear++
+				this.$fetch()
 			},
 			countryVisible(country) {
 				let currentName = country.name.toLowerCase()
