@@ -7,6 +7,7 @@
 		<div>
 			<button v-if="!simulationStarted" @click="startSimulation()">Start</button>
 			<button v-if="simulationStarted" @click="stopSimulation()">Stop</button>
+			<button @click="resetSimulation">Reset</button>
 			 Current Year: {{ currentYear }}
 		</div>
 
@@ -60,6 +61,11 @@
 			stopSimulation() {
 				this.simulationStarted = false
 				clearInterval(this.intervalId)
+			},
+			async resetSimulation() {
+				await this.$http.$get("/reset")
+				this.currentYear = 2020
+				this.$fetch()	
 			},
 			async tick() {
 				await this.$http.$get("/tick")
