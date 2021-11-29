@@ -51,7 +51,6 @@
 		},
 		async fetch() {
 			this.countries = await this.$http.$get("/all")
-			console.log("update")
 		},
 		methods: {
 			startSimulation() {
